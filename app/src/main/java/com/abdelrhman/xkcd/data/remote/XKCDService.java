@@ -2,10 +2,14 @@ package com.abdelrhman.xkcd.data.remote;
 
 import com.abdelrhman.xkcd.BuildConfig;
 import com.abdelrhman.xkcd.data.remote.dto.ComicDto;
+import com.abdelrhman.xkcd.di.ServiceConfig;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.LoggingInterceptor;
 
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -17,11 +21,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
+@Singleton
 public class XKCDService {
 
-    XKCDServiceInterface service;
+    private XKCDServiceInterface service;
 
-    public XKCDService(String baseURl) {
+    @Inject
+    public XKCDService(@ServiceConfig String baseURl) {
         service = buildService(baseURl);
     }
 

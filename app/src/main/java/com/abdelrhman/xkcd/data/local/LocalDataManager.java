@@ -4,14 +4,19 @@ import com.abdelrhman.xkcd.data.Comic;
 import com.abdelrhman.xkcd.data.IDataManager;
 import com.abdelrhman.xkcd.data.local.dao.ComicDao;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Flowable;
 
 
+@Singleton
 public class LocalDataManager implements IDataManager {
     private final ComicDao comicDao;
 
-    public LocalDataManager(ComicDataBase dataBase) {
-        comicDao = dataBase.comicDao();
+    @Inject
+    public LocalDataManager(ComicDao comicDao) {
+        this.comicDao = comicDao;
     }
 
 

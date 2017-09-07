@@ -6,6 +6,7 @@ import android.support.test.InstrumentationRegistry;
 import com.abdelrhman.xkcd.data.local.ComicDataBase;
 import com.abdelrhman.xkcd.data.local.LocalDataManager;
 import com.abdelrhman.xkcd.data.remote.RemoteDataManager;
+import com.abdelrhman.xkcd.data.remote.XKCDService;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -27,8 +28,9 @@ public class ComicRepositoryTest {
                 InstrumentationRegistry.getTargetContext(),
                 ComicDataBase.class)
                 .build();
-        localDataManager = new LocalDataManager(dataBase);
-        RemoteDataManager remoteDataManager = new RemoteDataManager("https://xkcd.com/");
+        localDataManager = new LocalDataManager(dataBase.comicDao());
+        XKCDService service = new XKCDService("https://xkcd.com/");
+        RemoteDataManager remoteDataManager = new RemoteDataManager(service);
         repository = new ComicRepository(localDataManager, remoteDataManager);
     }
 

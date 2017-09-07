@@ -4,14 +4,17 @@ import com.abdelrhman.xkcd.data.Comic;
 import com.abdelrhman.xkcd.data.IDataManager;
 import com.abdelrhman.xkcd.data.local.ComicItem;
 
+import javax.inject.Inject;
+
 import io.reactivex.Flowable;
 
 
 public class RemoteDataManager implements IDataManager {
     private final XKCDService service;
 
-    public RemoteDataManager(String baseUrl) {
-        service = new XKCDService(baseUrl);
+    @Inject
+    public RemoteDataManager(XKCDService service) {
+        this.service = service;
     }
 
     @Override

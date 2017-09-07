@@ -26,7 +26,7 @@ public class LocalDataManagerTest {
                 InstrumentationRegistry.getTargetContext(),
                 ComicDataBase.class)
                 .build();
-        localDataManager = new LocalDataManager(dataBase);
+        localDataManager = new LocalDataManager(dataBase.comicDao());
     }
 
     @Test

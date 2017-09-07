@@ -5,14 +5,18 @@ import com.abdelrhman.xkcd.data.Comic;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.inject.Inject;
+
 import static org.junit.Assert.assertEquals;
 
 public class RemoteDataManagerTest {
+    @Inject
     private RemoteDataManager remoteDataManager;
 
     @Before
     public void setup() {
-        remoteDataManager = new RemoteDataManager("https://xkcd.com/");
+        XKCDService service = new XKCDService("https://xkcd.com/");
+        remoteDataManager = new RemoteDataManager(service);
     }
 
     @Test
