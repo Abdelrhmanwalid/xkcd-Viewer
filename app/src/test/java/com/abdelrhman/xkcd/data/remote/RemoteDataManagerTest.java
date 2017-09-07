@@ -15,7 +15,7 @@ public class RemoteDataManagerTest {
 
     @Before
     public void setup() {
-        XKCDService service = new XKCDService("https://xkcd.com/");
+        XKCDService service = new XKCDService("https://xkcd.com/", false);
         remoteDataManager = new RemoteDataManager(service);
     }
 

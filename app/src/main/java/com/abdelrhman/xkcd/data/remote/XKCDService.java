@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import okhttp3.internal.platform.Platform;
 import retrofit2.Retrofit;
@@ -27,8 +26,8 @@ public class XKCDService {
     private XKCDServiceInterface service;
 
     @Inject
-    public XKCDService(@ServiceConfig String baseURl) {
-        service = buildService(baseURl);
+    public XKCDService(@ServiceConfig String baseURl, @ServiceConfig boolean enableLogging) {
+        service = buildService(baseURl, enableLogging);
     }
 
     public Flowable<ComicDto> getComic(long id) {
@@ -39,30 +38,32 @@ public class XKCDService {
         return service.getLatest();
     }
 
-    private XKCDServiceInterface buildService(String baseURl) {
-        return getDefaultRetrofit(baseURl).create(XKCDServiceInterface.class);
+    private XKCDServiceInterface buildService(String baseURl, boolean enableLogging) {
+        return getDefaultRetrofit(baseURl, enableLogging).create(XKCDServiceInterface.class);
     }
 
-    private Retrofit getDefaultRetrofit(String baseURl) {
+    private Retrofit getDefaultRetrofit(String baseURl, boolean enableLogging) {
         return new Retrofit.Builder()
                 .baseUrl(baseURl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(getOkHttpClientBuilder().build())
+                .client(getOkHttpClientBuilder(enableLogging).build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 
-    private OkHttpClient.Builder getOkHttpClientBuilder() {
-        return new OkHttpClient.Builder()
-                .addInterceptor(new LoggingInterceptor.Builder()
-                        .loggable(BuildConfig.DEBUG)
-                        .setLevel(Level.BASIC)
-                        .log(Platform.INFO)
-                        .request("Request")
-                        .response("Response")
-                        .build())
-                .readTimeout(60, TimeUnit.SECONDS)
+    private OkHttpClient.Builder getOkHttpClientBuilder(boolean enableLogging) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        if (enableLogging)
+            builder.addInterceptor(new LoggingInterceptor.Builder()
+                    .loggable(BuildConfig.DEBUG)
+                    .setLevel(Level.BASIC)
+                    .log(Platform.INFO)
+                    .request("Request")
+                    .response("Response")
+                    .build());
+        builder.readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS);
+        return builder;
     }
 
     interface XKCDServiceInterface {

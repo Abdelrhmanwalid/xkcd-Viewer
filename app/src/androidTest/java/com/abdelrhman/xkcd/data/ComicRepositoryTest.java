@@ -29,7 +29,7 @@ public class ComicRepositoryTest {
                 ComicDataBase.class)
                 .build();
         localDataManager = new LocalDataManager(dataBase.comicDao());
-        XKCDService service = new XKCDService("https://xkcd.com/");
+        XKCDService service = new XKCDService("https://xkcd.com/", false);
         RemoteDataManager remoteDataManager = new RemoteDataManager(service);
         repository = new ComicRepository(localDataManager, remoteDataManager);
     }

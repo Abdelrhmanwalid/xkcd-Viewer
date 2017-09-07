@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
+import com.abdelrhman.xkcd.BuildConfig;
 import com.abdelrhman.xkcd.data.local.ComicDataBase;
 import com.abdelrhman.xkcd.data.local.dao.ComicDao;
 import com.abdelrhman.xkcd.di.ServiceConfig;
@@ -17,15 +18,21 @@ import dagger.Provides;
 public class AppModule {
 
     @Provides
-    @Singleton
-    Context providesApplication(Application application) {
-        return application;
+    @ServiceConfig
+    static String baseUrl() {
+        return "https://xkcd.com/";
     }
 
     @Provides
     @ServiceConfig
-    static String baseUrl() {
-        return "https://xkcd.com/";
+    static Boolean enableLogging() {
+        return BuildConfig.DEBUG;
+    }
+
+    @Provides
+    @Singleton
+    Context providesApplication(Application application) {
+        return application;
     }
 
     @Provides
