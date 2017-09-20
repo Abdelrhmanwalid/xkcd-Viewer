@@ -1,8 +1,8 @@
 package com.abdelrhman.xkcd.data.remote;
 
 import com.abdelrhman.xkcd.data.Comic;
+import com.abdelrhman.xkcd.data.Converters;
 import com.abdelrhman.xkcd.data.IDataManager;
-import com.abdelrhman.xkcd.data.local.ComicItem;
 
 import javax.inject.Inject;
 
@@ -20,13 +20,13 @@ public class RemoteDataManager implements IDataManager {
     @Override
     public Flowable<Comic> getLatest() {
         return service.getLatest()
-                .map(dto -> ((Comic) new ComicItem(dto)));
+                .map(dto -> (Converters.comicDtoToComic(dto)));
     }
 
     @Override
     public Flowable<Comic> getComic(long id) {
         return service.getComic(id)
-                .map(dto -> ((Comic) new ComicItem(dto)));
+                .map(dto -> (Converters.comicDtoToComic(dto)));
     }
 
 }

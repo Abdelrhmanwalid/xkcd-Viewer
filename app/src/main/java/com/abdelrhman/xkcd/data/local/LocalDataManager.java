@@ -1,6 +1,7 @@
 package com.abdelrhman.xkcd.data.local;
 
 import com.abdelrhman.xkcd.data.Comic;
+import com.abdelrhman.xkcd.data.Converters;
 import com.abdelrhman.xkcd.data.IDataManager;
 import com.abdelrhman.xkcd.data.local.dao.ComicDao;
 
@@ -23,17 +24,17 @@ public class LocalDataManager implements IDataManager {
     @Override
     public Flowable<Comic> getLatest() {
         return comicDao.getLatest().
-                map(comicItem -> ((Comic) comicItem));
+                map(comicItem -> (Converters.LocalComicToComic(comicItem)));
     }
 
     @Override
     public Flowable<Comic> getComic(long id) {
         return comicDao.getComic(id)
-                .map(comicItem -> ((Comic) comicItem));
+                .map(comicItem -> (Converters.LocalComicToComic(comicItem)));
     }
 
 
     public void add(Comic comic) {
-        comicDao.insertAll(new ComicItem(comic));
+        comicDao.insertAll(Converters.comicToLocalComic(comic));
     }
 }
