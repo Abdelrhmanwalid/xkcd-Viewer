@@ -11,12 +11,12 @@ import static org.junit.Assert.assertEquals;
 
 public class RemoteDataManagerTest {
     @Inject
-    private RemoteDataManager remoteDataManager;
+    private RemoteDataSource remoteDataManager;
 
     @Before
     public void setup() {
         XKCDService service = new XKCDService("https://xkcd.com/", false);
-        remoteDataManager = new RemoteDataManager(service);
+        remoteDataManager = new RemoteDataSource(service);
     }
 
     @Test

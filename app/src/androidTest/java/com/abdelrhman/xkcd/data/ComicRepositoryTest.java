@@ -4,23 +4,20 @@ import android.arch.persistence.room.Room;
 import android.support.test.InstrumentationRegistry;
 
 import com.abdelrhman.xkcd.data.local.ComicDataBase;
-import com.abdelrhman.xkcd.data.local.LocalDataManager;
-import com.abdelrhman.xkcd.data.remote.RemoteDataManager;
+import com.abdelrhman.xkcd.data.local.LocalDataSource;
+import com.abdelrhman.xkcd.data.remote.RemoteDataSource;
 import com.abdelrhman.xkcd.data.remote.XKCDService;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
 
-import static android.R.attr.id;
-
 public class ComicRepositoryTest {
 
     private ComicRepository repository;
-    private LocalDataManager localDataManager;
+    private LocalDataSource localDataManager;
 
     @Before()
     public void setup() {
@@ -28,9 +25,9 @@ public class ComicRepositoryTest {
                 InstrumentationRegistry.getTargetContext(),
                 ComicDataBase.class)
                 .build();
-        localDataManager = new LocalDataManager(dataBase.comicDao());
+        localDataManager = new LocalDataSource(dataBase.comicDao());
         XKCDService service = new XKCDService("https://xkcd.com/", false);
-        RemoteDataManager remoteDataManager = new RemoteDataManager(service);
+        RemoteDataSource remoteDataManager = new RemoteDataSource(service);
         repository = new ComicRepository(localDataManager, remoteDataManager);
     }
 

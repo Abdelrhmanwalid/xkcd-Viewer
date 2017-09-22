@@ -2,18 +2,18 @@ package com.abdelrhman.xkcd.data.remote;
 
 import com.abdelrhman.xkcd.data.Comic;
 import com.abdelrhman.xkcd.data.Converters;
-import com.abdelrhman.xkcd.data.IDataManager;
+import com.abdelrhman.xkcd.data.DataSource;
 
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 
 
-public class RemoteDataManager implements IDataManager {
+public class RemoteDataSource implements DataSource {
     private final XKCDService service;
 
     @Inject
-    public RemoteDataManager(XKCDService service) {
+    public RemoteDataSource(XKCDService service) {
         this.service = service;
     }
 

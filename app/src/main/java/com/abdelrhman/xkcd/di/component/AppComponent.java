@@ -3,8 +3,8 @@ package com.abdelrhman.xkcd.di.component;
 import android.app.Application;
 
 import com.abdelrhman.xkcd.data.ComicRepository;
-import com.abdelrhman.xkcd.data.local.LocalDataManager;
-import com.abdelrhman.xkcd.data.remote.RemoteDataManager;
+import com.abdelrhman.xkcd.data.local.LocalDataSource;
+import com.abdelrhman.xkcd.data.remote.RemoteDataSource;
 import com.abdelrhman.xkcd.data.remote.XKCDService;
 import com.abdelrhman.xkcd.di.module.AppModule;
 
@@ -21,10 +21,10 @@ public interface AppComponent {
     XKCDService XKCDService();
 
     @Singleton
-    LocalDataManager localDataManager();
+    LocalDataSource localDataManager();
 
     @Singleton
-    RemoteDataManager remoteDataManager();
+    RemoteDataSource remoteDataManager();
 
     @Singleton
     ComicRepository comicRepository();

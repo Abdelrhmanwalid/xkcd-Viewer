@@ -10,14 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
-import java.util.List;
-
-import static android.R.attr.id;
-import static org.junit.Assert.*;
 
 public class LocalDataManagerTest {
 
-    private LocalDataManager localDataManager;
+    private LocalDataSource localDataManager;
     private int id;
 
     @Before
@@ -26,7 +22,7 @@ public class LocalDataManagerTest {
                 InstrumentationRegistry.getTargetContext(),
                 ComicDataBase.class)
                 .build();
-        localDataManager = new LocalDataManager(dataBase.comicDao());
+        localDataManager = new LocalDataSource(dataBase.comicDao());
     }
 
     @Test

@@ -2,7 +2,7 @@ package com.abdelrhman.xkcd.data;
 
 import io.reactivex.Flowable;
 
-public interface IDataManager {
+public interface DataSource {
     Flowable<Comic> getLatest();
 
     Flowable<Comic> getComic(long id);

@@ -1,7 +1,7 @@
 package com.abdelrhman.xkcd.data;
 
-import com.abdelrhman.xkcd.data.local.LocalDataManager;
-import com.abdelrhman.xkcd.data.remote.RemoteDataManager;
+import com.abdelrhman.xkcd.data.local.LocalDataSource;
+import com.abdelrhman.xkcd.data.remote.RemoteDataSource;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -9,13 +9,13 @@ import javax.inject.Singleton;
 import io.reactivex.Flowable;
 
 @Singleton
-public class ComicRepository implements IDataManager {
+public class ComicRepository implements DataSource {
 
-    private LocalDataManager localDataManager;
-    private RemoteDataManager remoteDataManager;
+    private LocalDataSource localDataManager;
+    private RemoteDataSource remoteDataManager;
 
     @Inject
-    public ComicRepository(LocalDataManager localDataManager, RemoteDataManager remoteDataManager) {
+    public ComicRepository(LocalDataSource localDataManager, RemoteDataSource remoteDataManager) {
         this.localDataManager = localDataManager;
         this.remoteDataManager = remoteDataManager;
     }

@@ -2,7 +2,7 @@ package com.abdelrhman.xkcd.data.local;
 
 import com.abdelrhman.xkcd.data.Comic;
 import com.abdelrhman.xkcd.data.Converters;
-import com.abdelrhman.xkcd.data.IDataManager;
+import com.abdelrhman.xkcd.data.DataSource;
 import com.abdelrhman.xkcd.data.local.dao.ComicDao;
 
 import javax.inject.Inject;
@@ -12,11 +12,11 @@ import io.reactivex.Flowable;
 
 
 @Singleton
-public class LocalDataManager implements IDataManager {
+public class LocalDataSource implements DataSource {
     private final ComicDao comicDao;
 
     @Inject
-    public LocalDataManager(ComicDao comicDao) {
+    public LocalDataSource(ComicDao comicDao) {
         this.comicDao = comicDao;
     }
 
