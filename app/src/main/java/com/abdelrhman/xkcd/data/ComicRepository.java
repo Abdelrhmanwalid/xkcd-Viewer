@@ -20,16 +20,24 @@ public class ComicRepository implements DataSource {
         this.remoteDataManager = remoteDataManager;
     }
 
+    private void saveOffline(Comic comic) {
+        localDataManager.add(comic);
+    }
+
     @Override
     public Flowable<Comic> getLatest() {
-        return localDataManager.getLatest()
-                .mergeWith(remoteDataManager.getLatest().doOnNext(localDataManager::add));
+        Flowable<Comic> local = localDataManager.getLatest();
+        Flowable<Comic> remote = remoteDataManager.getLatest()
+                .doOnNext(this::saveOffline);
+        return local.mergeWith(remote);
     }
 
     @Override
     public Flowable<Comic> getComic(long id) {
-        return localDataManager.getComic(id)
-                .ambWith(remoteDataManager.getComic(id).doOnNext(localDataManager::add));
+        Flowable<Comic> local = localDataManager.getComic(id);
+        Flowable<Comic> remote = remoteDataManager.getComic(id)
+                .doOnNext(this::saveOffline);
+        return local.ambWith(remote);
     }
 
 }
