@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.abdelrhman.xkcd"
         minSdkVersion 15
@@ -24,8 +24,8 @@ android {
 }
 
 def retrofitVersion = "2.3.0"
-def supportLibVersion = "26.0.2"
-def archCompVersion = "1.0.0-alpha9"
+def supportLibVersion = "26.1.0"
+def archCompVersion = "1.0.0-rc1"
 def daggerVersion = "2.11"
 
 dependencies {
