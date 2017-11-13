@@ -30,7 +30,7 @@ public class GetLatestComicUseCase extends UseCase<GetLatestComicUseCase.Request
 
     }
 
-    public class ResponseValue implements UseCase.ResponseValue {
+    public static class ResponseValue implements UseCase.ResponseValue {
         private Comic comic;
 
         public ResponseValue(Comic comic) {
