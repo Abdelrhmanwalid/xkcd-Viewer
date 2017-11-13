@@ -10,10 +10,10 @@ import io.reactivex.Flowable;
 
 
 public class RemoteDataSource implements DataSource {
-    private final XKCDService service;
+    private final RemoteService service;
 
     @Inject
-    public RemoteDataSource(XKCDService service) {
+    public RemoteDataSource(RemoteService service) {
         this.service = service;
     }
 

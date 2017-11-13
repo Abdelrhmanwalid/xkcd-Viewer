@@ -7,6 +7,8 @@ import android.content.Context;
 import com.abdelrhman.xkcd.BuildConfig;
 import com.abdelrhman.xkcd.data.local.ComicDataBase;
 import com.abdelrhman.xkcd.data.local.dao.ComicDao;
+import com.abdelrhman.xkcd.data.remote.RemoteService;
+import com.abdelrhman.xkcd.data.remote.XKCDService;
 import com.abdelrhman.xkcd.di.ServiceConfig;
 
 import javax.inject.Singleton;
@@ -38,6 +40,12 @@ public class AppModule {
     @Provides
     ComicDao comicDao(ComicDataBase dataBase) {
         return dataBase.comicDao();
+    }
+
+    @Singleton
+    @Provides
+    RemoteService service() {
+        return new XKCDService(baseUrl(), enableLogging());
     }
 
     @Provides

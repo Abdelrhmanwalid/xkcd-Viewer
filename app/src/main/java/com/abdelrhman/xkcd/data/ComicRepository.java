@@ -11,31 +11,31 @@ import io.reactivex.Flowable;
 @Singleton
 public class ComicRepository implements DataSource {
 
-    private LocalDataSource localDataManager;
-    private RemoteDataSource remoteDataManager;
+    private LocalDataSource localDataSource;
+    private RemoteDataSource remoteDataSource;
 
     @Inject
-    public ComicRepository(LocalDataSource localDataManager, RemoteDataSource remoteDataManager) {
-        this.localDataManager = localDataManager;
-        this.remoteDataManager = remoteDataManager;
+    public ComicRepository(LocalDataSource localDataSource, RemoteDataSource remoteDataSource) {
+        this.localDataSource = localDataSource;
+        this.remoteDataSource = remoteDataSource;
     }
 
     private void saveOffline(Comic comic) {
-        localDataManager.add(comic);
+        localDataSource.add(comic);
     }
 
     @Override
     public Flowable<Comic> getLatest() {
-        Flowable<Comic> local = localDataManager.getLatest();
-        Flowable<Comic> remote = remoteDataManager.getLatest()
+        Flowable<Comic> local = localDataSource.getLatest();
+        Flowable<Comic> remote = remoteDataSource.getLatest()
                 .doOnNext(this::saveOffline);
         return local.mergeWith(remote);
     }
 
     @Override
     public Flowable<Comic> getComic(long id) {
-        Flowable<Comic> local = localDataManager.getComic(id);
-        Flowable<Comic> remote = remoteDataManager.getComic(id)
+        Flowable<Comic> local = localDataSource.getComic(id);
+        Flowable<Comic> remote = remoteDataSource.getComic(id)
                 .doOnNext(this::saveOffline);
         return local.ambWith(remote);
     }

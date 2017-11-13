@@ -21,7 +21,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 @Singleton
-public class XKCDService {
+public class XKCDService implements RemoteService {
 
     private XKCDServiceInterface service;
 

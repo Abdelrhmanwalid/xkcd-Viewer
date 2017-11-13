@@ -5,7 +5,6 @@ import android.app.Application;
 import com.abdelrhman.xkcd.data.ComicRepository;
 import com.abdelrhman.xkcd.data.local.LocalDataSource;
 import com.abdelrhman.xkcd.data.remote.RemoteDataSource;
-import com.abdelrhman.xkcd.data.remote.XKCDService;
 import com.abdelrhman.xkcd.di.module.AppModule;
 
 import javax.inject.Singleton;
@@ -16,9 +15,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = AppModule.class)
 public interface AppComponent {
-
-    @Singleton
-    XKCDService XKCDService();
 
     @Singleton
     LocalDataSource localDataManager();
